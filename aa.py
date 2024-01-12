@@ -20,9 +20,6 @@ ffmpeg_options = {'options': '-vn'}
 
 songs_queue = []
 
-client_id = 'ef0b251043a645ad902c1869dc13a198'
-client_secret = 'd491ae561da048278cebc44e8ea7ffc3'
-
 client_credentials_manager = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
