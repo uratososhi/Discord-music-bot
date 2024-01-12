@@ -7,8 +7,6 @@ import asyncio
 from pytube.exceptions import RegexMatchError
 import os
 
-
-
 # bot_version = v3
 
 intents = discord.Intents.all()
@@ -147,36 +145,6 @@ async def pause(ctx):
     if not voice_client or not voice_client.is_playing():
         return await ctx.send("Não estou tocando música")
 
-@client.command(help='Limpa a fila de músicas.')
-async def clear(ctx):
-    if songs_queue:
-        songs_queue.clear()
-        await ctx.send("Fila de músicas limpa.")
-    else:
-        await ctx.send("A fila de músicas já está vazia.")
-
-async def add_spotify_playlist_to_queue(ctx, playlist_url):
-    try:
-        pattern = r"^https://open.spotify.com/playlist/([a-zA-Z0-9]+)"
-        match = re.match(pattern, playlist_url)
-        if match:
-            playlist_id = match.group(1)
-
-
-            playlist = sp.playlist_tracks(playlist_id)
-            for track in playlist['items']:
-                track_url = track['track']['external_urls']['spotify']
-                songs_queue.append(track_url)
-
-            await play_next(ctx)  # Iniciar a reprodução da fila
-            return True
-        else:
-            await ctx.send('Link de playlist do Spotify inválido!')
-            return False
-    except Exception as e:
-        print(f'Erro ao adicionar a playlist do Spotify à fila: {e}')
-        return False
-
 
 @client.event
 async def on_ready():
@@ -189,4 +157,4 @@ async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound):
         await ctx.send(f"Comando '{ctx.message.content.split()[0]}' não reconhecido.")
 
-client.run('YOUR TOKEN')
+client.run('YOUR-TOKEN')
